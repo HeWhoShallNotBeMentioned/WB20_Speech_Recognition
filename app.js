@@ -2,7 +2,7 @@ window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogn
 
   const recognition = new SpeechRecognition();
   recognition.interimResults = true;
-
+  recognition.lang = 'en-US';
 
   let p = document.createElement('p');
   const words = document.querySelector('.words');
@@ -15,7 +15,7 @@ recognition.addEventListener('result', e => {
       .map(result => result.transcript)
       .join('');
 
-      const poopScript = transcript.replace(/poop|poo|shit|dump/gi, '💩');
+      const poopScript = transcript.replace(/poop|poo|shit|dump|crap/gi, '💩');
       p.textContent = poopScript;
 
       if (e.results[0].isFinal) {
@@ -23,4 +23,5 @@ recognition.addEventListener('result', e => {
         words.appendChild(p);
       }
 });
+recognition.addEventListener('end', recognition.start);
 recognition.start();
